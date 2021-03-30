@@ -1,0 +1,97 @@
+/* Struktur */
+.topics .col {
+    flex-basis: auto;
+    max-width: 80%;
+}
+.col {
+    padding-right: 0px;
+}
+.row {
+    margin-right: 0px;
+}
+div.img {
+    background-image: url(../img/704.jpg);
+    background-size: cover;
+    background-position: center;
+    min-height: 250px;
+}
+div.img a {
+    color: #000;
+    margin: 15px;
+    font-size: 13px;
+}
+.struktur-info {
+    display: flex;
+    flex-direction: column;
+}
+.info h2, .info p{
+    padding: 5px 15px 0px 15px;
+}
+
+/* Topic Buttons Mobile */
+.container .topic {
+    background-color: grey;
+    border-radius: 1rem;
+    margin-bottom: 0.5rem;
+}
+.topic button.btn {
+    width: 100%;
+    border-radius: 1rem;
+}
+.content-topics {
+    padding: 1rem;
+}
+.container .topic {
+    background-color: rgba(187, 186, 186, 0.883);
+}
+div.button {
+    text-align: center;
+}
+.button button {
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(27, 25, 25);
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 2px 20px;
+}
+
+/* Vigas */
+/* Columna */
+/* Ass */
+/* DI Columna */
+/* Envolvente Mo */
+/* Graficos */
+
+@media (min-width:768px){
+/* Struktur */
+    .struktur-info {
+        flex-direction: row-reverse;
+        border-radius: 5px;
+        padding: 0;
+        background-color: #fff;
+        box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+    }
+    .img.col {
+        padding: 0;
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+    .container.col {
+        max-width: 50%;
+    }
+    .row.topics {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 10px;
+    }
+
+/* Viga */
+/* Columna */
+/* Ass */
+/* DI Columna */
+/* Envolvente Mo */
+/* Graficos */
+
+}

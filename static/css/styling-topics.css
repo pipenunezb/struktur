@@ -1,0 +1,136 @@
+/*---------------ALL ITEMS---------------*/
+div.header {
+    text-align: center;
+    padding: 5px;
+    color: rgb(40, 39, 44);
+}
+.container-fluid p, .header {
+    margin: 10px auto;
+    max-width: 1000px;
+    text-align: justify;
+}
+.container.entradas {
+    margin: auto;
+    text-align: center;
+}
+.container .entrada {
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 0;
+    max-width: 40%;
+}
+.entrada a {
+    height: 100%;
+    width: 100%;
+    color: rgb(40, 39, 44);
+}
+div.header h1 {
+    width: max-content;
+    margin: 0;
+    font-weight: bolder;
+}
+
+/*---------------VIGAS---------------*/
+div.header.vigas h1 {
+    font-size: 64px;
+    background: -webkit-linear-gradient(55deg, #30e749 25%, #295adf);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.vigas .entrada {
+    border-color: #30e749;
+    background-color: #30e749;
+    min-height: 64px;
+}
+/*---------------COLUMNAS---------------*/
+div.header.columnas h1 {
+    font-size: 64px;
+    background: -webkit-linear-gradient(55deg, #16BFFD 25%, #CB3066);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.columnas .entrada {
+    border-color: #16BFFD;
+    background-color: #16BFFD;
+}
+/*---------------ACERO---------------*/
+div.header.acero h1 {
+    font-size: 48px;
+    background: -webkit-linear-gradient(55deg, #fb2020 15%, #ff8c09);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.acero .entrada {
+    border-color: #fb2020;
+}
+.acero div.diseño {
+    background-size: cover;
+    background-position: center;
+    height: 160px;
+    min-width: 200px;
+    transition: .4s;
+    background-image: url(../img/acero.png);
+}
+.acero div.entrada:hover {
+    filter: brightness(0.7) grayscale(1);
+}
+.acero .entrada a:hover {
+    text-decoration: none;
+}
+/*---------------DIAGRAMAS---------------*/
+div.header.diagramas h1 {
+    font-size: 48px;
+    background: -webkit-linear-gradient(55deg, #fde61b 5%, #bb1bfd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+@media (max-width:768px){
+    div.header.diagramas h1 {
+        font-size: 26px;
+}}
+.diagramas .entrada {
+    border-color: #bb1bfd;
+    background-color: #bb1bfd;
+}
+
+@media (min-width:768px){
+    /*---------------ALL ITEMS---------------*/
+    div.entrada {
+        background-size: cover;
+        background-position: center;
+        height: 160px;
+        transition: .4s;
+    }
+    div.entrada:hover {
+        filter: brightness(0.7) grayscale(1);
+    }
+    .entrada a:hover {
+        text-decoration: none;
+    }
+    /*---------------VIGAS---------------*/
+    .vigas div.diseño {
+        background-image: url(../img/vigas.png);
+    }
+    .vigas div.normas {
+        background-image: url(../img/norma_green.png);
+    }
+    /*---------------COLUMNAS---------------*/
+    .columnas div.diseño {
+        background-image: url(../img/columnas.png);
+    }
+    .columnas div.normas {
+        background-image: url(../img/norma_blue.png);
+    }
+    /*---------------ACERO---------------*/
+    .acero div.diseño {
+        background-image: url(../img/acero.png);
+    }
+    /*---------------DIAGRAMAS---------------*/
+    .diagramas div.diseño {
+        background-image: url(../img/diagramas.png);
+    }
+    .diagramas div.normas {
+        background-image: url(../img/norma_yellow.png);
+    }
+}

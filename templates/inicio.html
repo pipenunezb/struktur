@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/style-indd.css' %}">
+
+<div class="struktur-info contenedor row">
+  <div class="img col d-flex align-items-end">
+    <a href="https://www.freepik.es/fotos/fondo">Foto de Fondo creado por mindandi - www.freepik.es</a>
+  </div>
+  <div class="info col">
+    <h2>STRUKTUR</h2>
+    <p class="lead">Struktur es una aplicación web intuitiva de aprendizaje y enseñanza orientada a estudiantes de ingeniería civil, esta innovadora herramienta brinda apoyo para afianzar los conocimientos adquiridos en clases presenciales y se enfoca en las temáticas relacionadas con el diseño de vigas y columnas, teniendo en cuenta los requisitos expuestos por la Norma Sismorresistente Colombiana vigente (NSR-10).</p>
+  </div>
+</div>
+
+<div class="row topics">
+  <div class="container col">
+    <div class="vigas topic">
+      <button class="vigas-toggler btn btn-dark" type="button" data-toggle="collapse" data-target="#vigasToggler"
+        aria-controls="vigasToggler" aria-expanded="false" aria-label="Toggle vigas">Vigas</button>
+      <div class="collapse vigas-collapse" id="vigasToggler">
+        <div class="content-topics">
+          <p>Una viga es un elemento estructural. cuya dimensión longitudinal es mayor que las otras dos y su solicitación principal es el momento flector, acompañado o no de cargas axiales, fuerzas cortantes y torsiones.</p>
+          <div class="button"><a href='/vigas/'><button class="comenzar">Comenzar</button></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container col">
+    <div class="columnas topic">
+      <button class="columnas-toggler btn btn-dark" type="button" data-toggle="collapse" data-target="#columnasToggler"
+        aria-controls="columnasToggler" aria-expanded="false" aria-label="Toggle columnas">Columnas</button>
+      <div class="collapse columnas-collapse" id="columnasToggler">
+        <div class="content-topics">
+          <p> Una columna es aquel elemento con una relación entre altura y menor dimensión lateral mayor de 3, es usado principalmente para resistir carga axial de compresión. </p>
+          <div class="button"><a href='/columnas/'><button class="comenzar">Comenzar</button></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row topics">
+  <div class="container col">
+    <div class="ass topic">
+      <button class="ass-toggler btn btn-dark" type="button" data-toggle="collapse" data-target="#assToggler"
+        aria-controls="assToggler" aria-expanded="false" aria-label="Toggle ass">Acero Óptimo</button>
+      <div class="collapse ass-collapse" id="assToggler">
+        <div class="content-topics">
+          <p>El cálculo del acero óptimo es de gran importancia para que el diseño de los elementos cumpla con los requisitos de resistencia y a su vez se adopte la solución más económica posible.</p>
+          <div class="button"><a href='/acero/'><button class="comenzar">Comenzar</button></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container col">
+    <div class="DICol topic">
+      <button class="DICol-toggler btn btn-dark" type="button" data-toggle="collapse" data-target="#DIColToggler"
+        aria-controls="DIColToggler" aria-expanded="false" aria-label="Toggle DICol">Diagramas de Interacción</button>
+      <div class="collapse DICol-collapse" id="DIColToggler">
+        <div class="content-topics">
+          <p>Los diagramas de interacción son gráficos que permiten chequear la resistencia de una columna dependiendo de sus dimensiones, del refuerzo suministrado y de la disposición de este, son utilizadas como base para el diseño.</p>
+          <div class="button"><a href='/diagramas/'><button class="comenzar">Comenzar</button></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

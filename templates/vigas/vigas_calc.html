@@ -1,0 +1,250 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="{% static 'css/styling-topics.css' %}">
+<link rel="stylesheet" href="{% static 'css/calc-style/st-calculos.css' %}">
+<link rel="stylesheet" href="{% static 'css/onof.css' %}">
+<link rel="stylesheet" href="{% static 'css/popup.css' %}">
+
+<div class="header vigas px-3">
+    <h1 class="pb-2">Vigas</h1>
+</div>
+
+<div class="row d-flex justify-content-around" style="max-width: 1000px;">
+    <div class="card m-4">
+        <div class='card-body p-3'>
+            <div class="text-center">
+                <h3 class="dark-grey-text mb-5"><strong>Datos de Entrada</strong></h3>
+            </div>
+            <form class="form" action="/vigas_calculos/" method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div id='group-{{ field.name }}'>
+                        <div class='form-group validate {{ field.name }}'>
+                            {{ field }}
+                            <span class="form-span {{ field.name }}" data-placeholder="{{ field.label }}"></span>
+                        </div>
+                        <br>
+                    </div>
+                {% endfor %}
+                <div class="d-flex justify-content-center">
+                    <input class="submit vigas m-2" type="submit" name='submit' value="Calcular">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="d-flex flex-column">
+        <img class ="m-4 rounded" src="../../static/img/viga.png" alt="">
+        <div class="d-flex justify-content-center">
+            <p class="onoff-input m-0 mr-2">Mostrar texto</p>
+            <label class="switch m-0">
+                <input class="viga" type="checkbox" checked>
+                <span class="slider round"></span>
+            </label>
+        </div>   
+    </div>
+    
+</div>
+
+<div class="mb-4 contenedor">
+    {% if submitbutton == "Calcular" %}
+    <input type="hidden" id="check-cuantia" value="check">
+    <input type="hidden" id="check-acero" value="1">
+    <input type="hidden" id="primera" value="{{cuantia}}">
+    <ol class="step pl-0"></ol> 
+        <li class="step-element pb-0">
+            <div class="step-number"><span class="number">1</span></div>
+            <div class="step-excerpt">
+                <h6 class="font-weight-bold dark-grey-text mb-3 pt-3">Determinar la magnitud de la carga uniforme</h6>
+                <p class="onoff">En este paso seleccionamos o calculamos una carga uniforme Wu</p>
+                <p class="onoff">Al calcular Wu utilizando carga muerta (CD) y carga viva (CL), utilizaremos los factores de seguridad establecidos en la ecuanción (NSR-10, Sec. B.2.4-2), omitiendo para este caso (solo por fines académicos) las cargas \(F\) \(T\) \(H\) \(L_r\) \(G\) y \(L_e\) (véase sus definiciones en NSR-10, Sec. B.2.2)</p>
+                <p id="show-cdcl">\[Wu = (1.2*CD)+(1.6*CL)\]</p>
+                <p id="show-cdcl">\[Wu = (1.2*{{CD}})+(1.6*{{CL}})\]</p>
+                <p>\[Wu = {{Wu}} [Tf/m] \]</p><br>
+                <p id="show-cdcl">Determinamos el factor de seguridad total</p>
+                <p id="show-cdcl">\[FS = {Wu \over CD+CL}÷ɸ\]</p>
+                <p id="show-cdcl">\[FS = { {{Wu}} \over {{CD}}+{{CL}} }÷{{phi}}\]</p>
+                <p id="show-cdcl">\[FS = {{FS}}\]</p>
+            </div>
+            
+        </li>
+        <li class="step-element pb-0">
+            <div class="step-number"><span class="number">2</span></div>
+            <div class="step-excerpt">
+                <h6 class="font-weight-bold dark-grey-text mb-3 pt-3">Hallar el Momento último</h6>
+                <p class="onoff">Para vigas {{tapoyo}}, \(Mu\) se calcula dividiendo \(Wu*L^2\) entre \({{AP}}\). (consulte 'Momentos en vigas')</p>
+                <p>\[Mu = {Wu*L^2 \over {{AP}} }\]</p>
+                <p>\[Mu = { {{Wu}}*{{L}}^2 \over {{AP}} }\]</p>
+                <p>\[Mu = {{Mu}} [Tf*m]\]</p>
+            </div>
+            
+        </li>
+        <li class="step-element pb-0">
+            <div class="step-number"><span class="number">3</span></div>
+            <div class="step-excerpt">
+                <h6 class="font-weight-bold dark-grey-text mb-3 pt-3">Determinar el factor β₁</h6>
+                <p class="onoff">Este es el factor que relaciona la profundidad de la zona en compresión con la profundidad del eje neutro. Su valor se determinó experimentalmente y este varia dependiendo al valor de \(f'c\) (véase NSR-10, Sec. C.10.2.7.3)</p>
+                <p class="text-center">Si \((280 ≥ f'c ≥ 170)\) \[→ β₁ = 0.85\]</p>
+                <p class="text-center">Si \((560 > f'c > 280)\) \[→ β₁ = 0.85-({0.05 \over 70}*(f'c-280))\]</p>
+                <p class="text-center">Si \((560 ≤ f'c)\) \[→ β₁ = 0.65\]</p><br>
+                <p class="text-center">Por lo tanto para \(f'c = {{fc}}\)</p>
+                <p class="text-center">\(β₁ = {{B1}}\)</p>
+            </div>
+            
+        </li>
+        <li class="step-element pb-0">
+            <div class="step-number"><span class="number">4</span></div>
+            <div class="step-excerpt">
+                <h6 class="font-weight-bold dark-grey-text mb-3 pt-3">Calcular la cuantía</h6>
+                <input type="hidden" name="y_r" id="y_r" value="{{y_r}}">
+                <p class="onoff">Primero debemos determinar la longitud d, restandole a la altura de la viga \(h\), la distancia de la fibra extrema en tracción al centroide de las barras longitudinales en tracción \(d_c\)</p>
+                <p class="onoff">(La definición de \(d_c\) no está establecida en la nsr-10, esta ha sido adoptada por STRUKTUR para facilitar la explicación del cálculo de \(d\))</p>
+                <p>Inicialmente se asume que \(d_c = rec + 2\), pero luego este valor será recalculado.</p>
+                <p>\[d = h-d_c\]</p>
+                <p>\[d = {{h}}-{{dP}}\]</p>
+                <p>\[d = {{d}} [cm]\]</p><br>
+                <p class="onoff">Luego determinamos el valor de ku, el cual usaremos para entrar en las tablas de cuantía o calcularla usando la fórmula</p>
+                <p>\[ku = { Mu*10^5 \over b*d^2}\]</p>
+                <p>\[ku = { {{Mu}}*10^5 \over {{b}}*{{d}}^2}\]</p>
+                <p>\[ku = {{ku}} [kgf/cm^2]\]</p><br>
+                <p>La cuantía mínima (véase NSR-10, C.10-3)(ver conversión de unidades a mks en NSR-10, Apéndice C-F, C.10-3) es la mayor entre:</p>
+                <p class="text-center">\((ρ_{min1} = {0.8 \sqrt{f'c} \over fy} )\)   y   \((ρ_{min2} = {14 \over fy} )\)</p>
+                <p class="text-center">\((ρ_{min1} = {0.8 \sqrt{ {{fc}} } \over {{fy}} } )\)   y   \((ρ_{min2} = {14 \over {{fy}} } )\)</p>
+                <p class="text-center">\((ρ_{min1} = {{cmin1}} )\) y \((ρ_{min2} = {{cmin2}} )\)</p>
+                <p class="text-center">\(ρ_{min} = {{cmin}} \)</p>
+                <p>La cuantía máxima permitida por la norma es de \(0.025\) (véase NSR-10, Sec. C.21.5.2.1), pero para fines académicos trabajaremos bajo condiciones preestablecidas, suponiendo un valor ɸ fijo de 0.9 para forzar el diseño a trabajar controlado por la tensión (vea Paso 9), por lo tanto el límite de cuantía máximo lo calcularemos así:</p>
+                <p class="text-center">\(ρ_{max} = 0.85*{f'c \over fy}*β₁*{0.003 \over 0.003+0.005} \)</p>
+                <p class="text-center">\(ρ_{max} = 0.85*{ {{fc}} \over {{fy}} }*{{B1}}*{0.003 \over 0.003+0.005} \)</p>
+                <p class="text-center">\(ρ_{max} = {{cmax}} \)</p><br>
+                <p>(Para ver cómo seleccionar e introducir los datos, <a target="_blank" href="../../static/descargas/GUIA VIGAS.pdf">revise la guía</a>)</p><!--aqui video gif de como usar-->
+                <p id="show-t"><a class="image-link" href="../../static/img/cuantias/cuantia_{{fy}}_{{fc}}.png" >Tabla de cuantía</a></p> <!--aqui img tabla de cuantia-->
+                <!-----aqui debe ir el input de cuantia----->
+                <p id="show-f" class="text-center">\(ρ = ({0.85*f'c \over fy})*(1- \sqrt{1-{2*ku \over ɸ*0.85*f'c}})\)</p>
+                <p id="show-f" class="text-center">\(ρ = ({0.85*{{fc}} \over {{fy}} })*(1- \sqrt{1-{2*{{ku}} \over {{phi}}*0.85*{{fc}} }})\)</p>
+                <p id="show-f" class="text-center">\(ρ = {{cuanto}} \)</p>
+                <p id="break_cuantia" class="text-center">\(ρ = {{cuantia}}\) {{comp_cuan}}</p>
+                <input id="id_cuantia" type="hidden" value="{{cuantia}}">
+            </div>
+        </li>
+
+        <div id="break_cuantia">
+            
+            <li class="step-element pb-0">
+                <div class="step-number"><span class="number">5</span></div>
+                <div class="step-excerpt">
+                    <h6 class="font-weight-bold dark-grey-text mb-3 pt-3">Acero</h6>
+                    <p class="onoff">A continuación calcularemos el área de acero teórico que debe ser utilizado en el elemento</p>
+                    <p>\[Asc = ρ*b*d\]</p>
+                    <p>\[Asc = {{cuantia}}*{{b}}*{{d}}\]</p>
+                    <p>\[Asc = {{asc}}[cm^2]\]</p>
+
+                    <p class="onoff">El área de acero que será suministrado depende de los diametros comerciales de barras de acero, debemos seleccionar una combinación de estas teniendo en cuenta que la sumatoria de sus áreas debe ser lo menor posible, SIEMPRE Y CUANDO cumpla con ser mayor a \(Asc\)</p>
+                    <p id="show-manual">Ver AQUÍ cómo seleccionar una combinación de barras</p> <!--aqui video gif de como usar-->
+                    <p id="show-manual"><a class="image-link" href="../../static/img/tabla-acero.png" >Mostrar áreas</a></p> <!--aqui img tabla de areas-->
+                    <!-----aqui debe ir el input de barras----->
+
+                    <p id="show-auto">El modo de selección automático de STRUKTUR genera todas las combinaciones de barras posibles, pasando luego cada una por un filtro de condiciones y escogiendo al final la opción más económica</p>
+                    <p id="show-auto">Las condiciones que deben cumplir las combinaciones son: separación mínima entre barras según la norma, área suministrada mayor que área calculada, uso de máximo tres diametros consecutivos en una misma combinación.</p>
+                    <div id="break_acero">
+                        <p>\[Barras = {{bar_show}}\]</p>
+                        <input id="id-barra" type="hidden" value="{{bar}}">
+                        <p>\[Ass = {{ass_show}}[cm^2]\]</p>
+                        <p class="onoff">En este punto, al tener nuestra combinación de barras, debemos recalcular d. Para eso calcularemos la verdadera longitud \(d_c\), que es la suma entre el recubrimiento, el diametro del estribo y la longitud al centroide del refuerzo en tracción. (véase NSR-10 Sec. C.7.7.1)</p>
+                        <p>\[d_c = rec + (est*{2.54 \over 8}) + {∑Ῡ*A \over ∑A}\]</p>
+                        <p class="onoff">\(Ῡ\) es la distancia desde el punto de contacto con el estribo hasta el centro de masa de cada área</p>
+                        <p>\[d_c = {{rec}}+({{est}}*{2.54 \over 8}) + {{yy}} \]</p>
+                        <p>\[d_c = {{dP}} \]</p>
+                        
+                        <p>COMPROBACIÓN DE ÁREA</p>
+                        <p class="text-center">\(Asc ≤ Ass\) {{comp_area}}</p>
+                        <p>COMPROBACIÓN DE SEPARACIÓN</p>
+                        <p>El Diametro de mayor denominación utilizado en las barras longitudinales es \(dB = N{{dB}}\)</p>
+                        <p>Para barras longitudinales \(N{{dB}}\), se deben usar estribos \(est = N{{est}}\) (véase NSR-10, Sec. C.7.10.5.1)</p>
+                        <p class="text-center">\(s = {b-2(rec+est*{2.54 \over 8})-(∑Barras*{2.54 \over 8}) \over cantidadBarras-1}\)</p>
+                        <p class="text-center">\(s = { {{b}}-2({{rec}}+{{est}}*{2.54 \over 8})-{{dbar}} \over {{length}}-1}\)</p>
+                        <p class="text-center">\(s = {{sep}}[cm]\)</p>
+                        <p>La separación de barras longitudinales en vigas debe cumplir con los siguientes criterios</p>
+                        <p>\(s ≥ dB\) (véase NSR-10, Sec. C.7.6.1)</p>
+                        <p>\(s ≥ 2.5cm\) (véase NSR-10, Sec. C.7.6.1)</p>
+                        <p>\(s ≥ {4 \over 3}Diametro\) \(agregado\) (véase NSR-10, Sec. C.3.3.2)</p>
+                        <p>Separación \({{separacion}}\)</p>
+                    </div>
+                </div>
+                
+            </li>
+            <div id="break_acero">
+                <li class="step-element pb-0">
+                    <div class="step-number"><span class="number">6</span></div>
+                    <div class="step-excerpt">
+                        <h6 class="font-weight-bold dark-grey-text mb-3 pt-3">Profundidad de la zona en compresión</h6>
+                        <p class="onoff">Al momento de diseñar, la Norma nos permite usar una distribución rectangular de esfuerzos de compresión como reemplazo de distribuciones más exactas de los esfuerzos. Este 'bloque de esfuerzos' tiene una una profundidad \(a\) (véase NSR-10, Sec. C.10.2.7.1) que se determina de la siguiente manera:</p>
+                        <p>\[a = {Ass*fy \over 0.85*f'c*b}\]</p>
+                        <p>\[a = { {{ass_show}}*{{fy}} \over 0.85*{{fc}}*{{b}} }\]</p>
+                        <p>\[a = {{a}}[cm]\]</p>
+                    </div>
+                    
+                </li>
+                <li class="step-element pb-0">
+                    <div class="step-number"><span class="number">7</span></div>
+                    <div class="step-excerpt">
+                        <h6 class="font-weight-bold dark-grey-text mb-3 pt-3">Hallar la profundidad del eje neutro</h6>
+                        <p class="onoff">La distancia \(c\) va desde la fibra extrema en compresión hasta el eje neutro (véase NSR-10, Sec. C.10.2.7.1)</p>
+                        <p>\[c = {a \over β₁}\]</p>
+                        <p>\[c = { {{a}} \over {{B1}} }\]</p>
+                        <p>\[c = {{c}}[cm]\]</p>
+                    </div>
+                    
+                </li>
+                <li class="step-element pb-0">
+                    <div class="step-number"><span class="number">8</span></div>
+                    <div class="step-excerpt">
+                        <h6 class="font-weight-bold dark-grey-text mb-3 pt-3">Calcular la magnitud de la deformación unitaria en el acero</h6>
+                        <p class="onoff">Al suponer el límite de deformación del concreto (\(εc\)), el cálculo de la deformación unitaria del acero nos permite saber cuando un elemento está controlado por la compresión, por la tensión o se encuentra en zona de transición.</p>
+                        <p class="onoff">Lo recomendable es diseñar un elemento controlado por la tensión, para cumplir con esto, la deformación unitaria del acero no debe ser menor a \(0.005\) (véase NSR-10, Sec. CR10.3.3).</p>
+                        <p>\[εs = ({εc \over c})*(d-c)\]</p>
+                        <p>\[εs = ({ {{ec}} \over {{c}} })*({{d}}-{{c}})\]</p>
+                        <p>\[εs = {{es}}\]</p>
+                        <p>comprobacion de fluencia</p>
+                        <p>\(εs ≥ 0.005\) {{comp_fluen}}</p>
+                    </div>
+                    
+                </li>
+                <li class="step-element pb-0">
+                    <div class="step-number"><span class="number">9</span></div>
+                    <div class="step-excerpt">
+                        <h6 class="font-weight-bold dark-grey-text mb-3 pt-3">Calcular el factor de reducción de resistencia</h6>
+                        <p class="onoff">El factor de reducción de la resistencia varia dependiendo del valor de la deformación unitaria del acero (véase NSR-10, Fig. CR9.3.2 y NSR-10, Sec. C.10.3.3)</p>
+                        <p class="text-center">Si \((εs ≤ 0.002)\) \[→ ɸ = 0.65\]</p>
+                        <p class="text-center">Si \((0.005 > εs > 0.002)\) \[→ ɸ = 0.65 + (εs-0.002)*({250 \over 3})\]</p>
+                        <p class="text-center">Si \((0.005 ≤ εs)\) \[→ ɸ = 0.90\]</p><br>
+                        <p class="text-center">Por lo tanto para \(εs = {{es}}\)</p>
+                        <p class="text-center">\(ɸ = {{phi}}\)</p>
+                    </div>
+                    
+                </li>
+                <li class="step-element pb-0">
+                    <div class="step-number"><span class="number">10</span></div>
+                    <div class="step-excerpt">
+                        <h6 class="font-weight-bold dark-grey-text mb-3 pt-3">Hallar el Momento resistente</h6>
+                        <p class="onoff">En este último paso determinamos la magnitud del momento flector que puede soportar el elemento sin que su estructura se vea afectada, y lo comparamos con el momento último al cual será sometido. </p>
+                        <p class="text-center">\(Mr = ɸ*Ass*fy*(d-({a \over 2}))÷10^5\)</p>
+                        <p class="text-center">\(Mr = {{phi}}*{{ass_show}}*{{fy}}*({{d}}-({ {{a}} \over 2}))÷10^5\)</p>
+                        <p class="text-center">\(Mr = {{Mr}}[Tf*m]\)</p>
+                        <p class="text-center">\(Mr ≥ Mu\) {{comp_Mr}}</p>
+                    </div>
+                    
+                </li>
+            </div> <!--break-acero-->
+        </div> <!--break-cuantia-->
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="{% static 'js/popup.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/js-viga.js' %}"></script>
+<script>$(document).ready(function() {$('.image-link').magnificPopup({type:'image'});});</script>
+{% endblock %}

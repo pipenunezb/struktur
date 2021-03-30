@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/styling-topics.css' %}">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
+
+<div class="header diagramas px-3">
+    <h1 class="pb-2">Diagramas de Interacción</h1>
+</div>
+
+<div>
+    <div class="container p-3">
+        <div>
+            <p class="text-justify">Los diagramas de interacción son gráficos que permiten chequear la resistencia de una columna dependiendo de sus dimensiones, del refuerzo suministrado y de la disposición de este, son utilizadas como base para el diseño.<br><br>
+                <div class="text-center">
+                    <img class="rounded mx-auto mw-100" src="{% static 'img/diagramas0.png' %}" alt="Deformacion de columnas en condiciones balanceadas"><br><br>
+                </div>
+            <p class="text-justify">Del análisis de la anterior figura tomada del libro "Análisis y diseño sísmico de edificios" de Roberto Rochel, es posible llegar a las siguientes ecuaciones que describen la  resistencia de los elementos:
+            \[φP_n = rφ[0.85f'_c (A_g-A_{s total}) +f_y A_{s total} \]
+            \[φM_n = φPn*e\] 
+            \[φM_n = φ[0.85f'_c ab*({h\over 2}-{a\over 2})+A'_s f'_s*(d-d')-A_s f_s*({(d-d')\over 2})]\]
+            Estos datos deben ser corregidos por un factor de reducción phi (φ) que garantizará la seguridad del elemento.<br>
+            Es posible analizar las fallas de una columna a tracción, a compresión o que se produzca una falla balanceada, el diagrama de deformaciones que representa dicha situación de falla balanceada se dispone a continuación:</p>
+            <div class="text-center">
+                <img class="rounded mx-auto mw-100" src="{% static 'img/diagramas1.png' %}" alt="Deformacion de columnas en condiciones balanceadas"><br><br>
+            </div>
+            <li class="text-justify"><b>Falla balanceada</b><br>
+            <p class="text-justify">La condición de falla balanceada existe cuando el refuerzo extremo en tracción alcanza la deformación unitaria correspondiente a \(f_y\), al mismo tiempo que el hormigón en compresión alcanza la deformación unitaria última supuesta de 0.003. En este caso, la distancia de la fibra extrema del hormigón a compresión al eje neutro se denomina \(c_b\), y la capacidad de carga y momento \(P_b\) y \(M_b\), la combinación de momento y carga para esta falla quedan inmersos en el diagrama de interacción en el presente software.<br>
+            Para entender dicho gráfico deben reforzarse conocimientos básicos de resistencia de materiales. De la figura anterior puede deducirse que la deformación del acero en el punto de falla balanceada es igual a la deformación de fluencia del acero y que esta está dada por el esfuerzo de fluencia dividido entre el módulo de elasticidad del material.</p>
+            \[ε_s = ε_y\]
+            \[ε_y = {f_y \over E_s}\]
+            \[E_s = 200000Mpa(NSR-10.Sec.C.8.5.2)\] 
+            <p class="text-justify">Además, que la deformación unitaria última de compresión del concreto se supone igual a 0.003 como los dispone la norma (\(ε_{uc}\) = 0.003) (NSR-10. Sec.C.10.2.3).</p>
+            <p class="text-justify">La distancia al eje neutro en este caso, denominada \(c_b\) se calcula con ayuda de una semejanza de triángulos de la siguiente manera:</p>
+            \[{ε_{uc}\over c_b} = {ε_y\over d-c_b} \]
+            \[c_b = {0.003\over 0.003+ε_y}*d\]
+            <p class="text-justify">De igual forma, puede calcularse la deformación unitaria del acero en esa condición:</p>
+            \[{ε_{uc}\over c_b} = {ε_s'\over c_b-d'} \]
+            \[→ ε'_s = 0.003 {c_b-d'\over c_b} \]
+            <p class="text-justify">También es importante conocer los casos de fallas no balanceadas, en la figura siguiente se muestran los diagramas de deformación que ilustran estas situaciones.</p>
+            <div class="text-center">
+                <img class="rounded mx-auto mw-100" src="{% static 'img/diagramas2.png' %}" alt="Deformacion de columnas en condiciones no balanceadas"><br><br>
+            </li>
+            </div>
+        <div class="py-2">
+            <li class="text-justify"><b>Falla a tracción</b><br>
+            <p class="text-justify">Observando la figura anterior, se llega a la conclusión de que cuando \(c\) < \(c_b\), el acero localizado en la zona de tracciones presenta una deformación unitaria \(ε_s\) > \(ε_y\) (por esto \(f_s\) = \(f_y\)), lo que indica que el acero a tracción controla el diseño.</p><br>
+            <p class="text-justify">Las deformaciones del esfuerzo a tracción se encuentran dados por la ecuación: </p>
+            \[{ε_{c}\over c} = {ε_s'\over c-d'} \]
+            \[→ ε'_s = 0.003 {c-d'\over c} \]
+            <p class="text-justify">Esta ecuación se puede deducir fácilmente en la imagen, donde se evidencia una semejanza de triángulos que permite llegar a la misma.<br><br>
+            Además de esto, según la NSR-10. Sec.C.8.5.2 el módulo de elasticidad del acero puede tomarse como \(E_s\) = 200000Mpa.
+            Por tanto, \(f_s\) = \(f_y\), se procede a hallar el esfuerzo que se define como el producto del módulo de elasticidad y la deformación del elemento, de la siguiente forma:</p>
+            \[f'_s = ε'_s*E_s = {0.003*(c-d')\over c}*200000Mpa \]
+            \[f'_s = 600*{(c-d')\over c}\]
+            <p class="text-justify">Al encontrarse el último punto en una tracción absoluta, se ubica dicho punto para una combinación de momento nulo y de carga axial igual al producto del módulo de elasticidad del acero y el área total de acero de la sección transversal de la columna: </p>
+            \[P_n = f_y*A_{s TOTAL}\]
+            \[M_n=0\]
+            </li>
+        </div>
+        <div class="py-2">
+            <li class="text-justify"><b>Falla a compresión</b><br>
+            <p class="text-justify">De la misma manera, se llega a la conclusión de que cuando \(c\) > \(c_b\), el acero localizado en la zona de tracciones presenta una deformación unitaria \(ε_s\) < \(ε_y\) (por esto \(f_s\) < \(f_y\)), lo que indica que la compresión controla el diseño. </p><br>
+            \[f'_s = ε'_s*E_s = {0.003*(d-c)/c}*200000Mpa\]
+            Esto se tiene en cuenta para toda la sección, se aplican las fórmulas ya nombradas para momento y carga axial última para distintas profundidades de \(c\), se grafican las parejas ordenadas (\(M_u\),\(P_u\)) y se obtienen los puntos correspondientes al diagrama de interacción.<br>
+            Para analizar la columna y su resistencia a la “compresión pura”, se remite al punto extremo donde la carga última es máxima, sin excentricidad, es decir \(M_u\) = 0.<br>
+            Para este punto la resistencia del elemento será:
+            \[φP_n = φ0.85f'_c (A_g-A_{s tota} )+f_y A_{s total}\]
+            \[φM_n=0\]
+            </p></li>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

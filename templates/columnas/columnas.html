@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/styling-topics.css' %}">
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
+
+<div class="header columnas px-3">
+    <h1 class="pb-2">Columnas</h1>
+</div>
+<div class="container-fluid">
+    <p>Una columna es aquel elemento con una relación entre altura y menor dimensión lateral mayor de 3, es usado
+        principalmente para resistir carga axial de compresión. Para un elemento de sección variable, la menor dimensión
+        lateral es promedio de las dimensiones superior e inferior del lado menor. <a target="_blank" href="../../static/descargas/GUIA COLUMNAS.pdf">VER GUÍA</a></p>
+</div>
+<div class="container entradas columnas row justify-content-around">
+    <div class="normas entrada col">
+        <a href='/columnas_normas/' class="d-flex align-items-center justify-content-center">
+            <h4>Normas</h4>
+        </a>
+    </div>
+    <div class="diseño entrada col">
+        <a href='/columnas_calculos/' class="d-flex align-items-center justify-content-center">
+            <h4>Diseño Columna Corta</h4>
+        </a>
+    </div>
+</div>
+
+{% endblock %}

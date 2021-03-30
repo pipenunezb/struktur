@@ -1,0 +1,404 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
+
+<link rel="stylesheet" href="{% static 'css/styling-topics.css' %}">
+<link rel="stylesheet" href="{% static 'css/style-button-norm.css' %}">
+
+<div class="header columnas px-3">
+    <h1 class="pb-2">Columnas</h1>
+</div>
+
+<div>
+<!-----Notaciones----->
+    <div class="container p-2">
+        <button class="notaciones-toggler btn btn-dark" type="button" data-toggle="collapse" data-target="#notacionesToggler"
+        aria-controls="notacionesToggler" aria-expanded="false" aria-label="Toggle notaciones">Notaciones</button>
+        <div class="collapse notaciones-collapse" id="notacionesToggler">
+            <li class="text-justify">\(a\) = profundidad del bloque rectangular equivalente de esfuerzos.</li>
+            <li class="text-justify">\(A_{ch}\) = área de la sección transversal de un elemento estructural, medida entre los bordes exteriores del refuerzo transversal.</li>
+            <li class="text-justify">\(A_s\) = área de refuerzo longitudinal no preesforzado a tracción.</li>
+            <li class="text-justify">\(A_s´\) = área mínima de refuerzo de flexión.</li>
+            <li class="text-justify">\(A_{s,min}\) = área del refuerzo a compresión.</li>
+            <li class="text-justify">\(A_{sh}\) = área total de refuerzo transversal (incluyendo ganchos suplementarios) colocado dentro del espaciamiento \(s\) y perpendicular a la dimensión \(b_c\).</li>
+            <li class="text-justify">\(b\) = ancho de la cara en compresión del elemento.</li>
+            <li class="text-justify">\(b_c\) = dimensión transversal del núcleo del elemento medida entre los bordes externos del refuerzo transversal con área \(A_{sh}\).</li>
+            <li class="text-justify">\(b_w\) = ancho del alma o diámetro de la sección circular.</li>
+            <li class="text-justify">\(c\) = distancia medida desde la fibra extrema en compresión al eje neutro.</li>
+            <li class="text-justify">\(c_c\) = recubrimiento libre del refuerzo.</li>
+            <li class="text-justify">\(c_1\) = dimensión de una columna rectangular o rectangular equivalente, de un capitel o de una ménsula, medida en la dirección de la luz para la cual se determinan los momentos.</li>
+            <li class="text-justify">\(c_2\) = dimensión de una columna rectangular o rectangular equivalente, de un capitel o de una ménsula, medida en la dirección perpendicular a \(c_1\).</li>
+            <li class="text-justify">\(d\) = distancia desde la fibra extrema en compresión hasta el centroide del refuerzo longitudinal en tracción.</li>
+            <li class="text-justify">\(d'\) = distancia desde la fibra extrema en compresión al centroide del refuerzo longitudinal en compresión.</li>
+            <li class="text-justify">\(d_b\) = diámetro nominal de una barra, alambre o torón de preesforzado.</li>
+            <li class="text-justify">\(D\) = cargas muertas, o momentos y fuerzas internas correspondientes. </li>
+            <li class="text-justify">\(E\) = efectos de carga producidos por el sismo o momentos y fuerzas internas correspondientes. </li>
+            <li class="text-justify">\(E_c\) = módulo de elasticidad del concreto </li>
+            <li class="text-justify">\(E_s\) = módulo de elasticidad del refuerzo y del acero estructural.</li>
+            <li class="text-justify">\(f_c'\) = resistencia especificada a la compresión del concreto.</li>
+            <li class="text-justify">\(l_o\) = longitud, medida desde la cara del nudo a lo largo del eje del elemento estructural, dentro de la cual debe colocarse refuerzo transversal especial.</li>
+            <li class="text-justify">\(l_d\) = longitud de desarrollo en tracción para barras corrugadas, alambres corrugados, refuerzo electrosoldado de alambre liso o corrugado, o torones de preesfuerzo.</li>
+            <li class="text-justify">\(l\) = luz de la viga o losa en una dirección; proyección libre del voladizo.</li>
+            <li class="text-justify">\(L\) = cargas vivas, o momentos y fuerzas internas correspondientes.</li>
+            <li class="text-justify">\(M_{max}\) = máximo momento mayorado en la sección debido a las cargas aplicadas externamente.</li>
+            <li class="text-justify">\(M_n\) = resistencia nominal a flexión en la sección.</li>
+            <li class="text-justify">\(M_{nc}\) = resistencia nominal a flexión de la columna que llega a un nudo, calculada para la carga axialo.</li>
+            <li class="text-justify">\(P_b\) = resistencia axial nominal en condiciones de deformación unitaria balanceada.</li>
+            <li class="text-justify">\(P_n\) = resistencia axial nominal de la sección transversal.</li>
+            <li class="text-justify">\(P_o\) = resistencia axial nominal para una excentricidad igual a cero</li>
+            <li class="text-justify">\(P_u\) = fuerza axial mayorada; debe tomarse como positiva para compresión y negativa para tracción.</li>
+            <li class="text-justify">\(s\) = espaciamiento medido centro a centro de unidades tales como refuerzo longitudinal, refuerzo transversal, tendones de preesfuerzo, alambres, o anclajes.</li>  
+            <li class="text-justify">\(s_o\) =  espaciamiento centro a centro del refuerzo transversal dentro de una longitud \(l_o\) </li>
+            <li class="text-justify">\(s_2\) = espaciamiento centro a centro del refuerzo longitudinal de cortante o torsión.</li>  
+            <li class="text-justify">\(U\) = resistencia requerida para resistir las cargas mayoradas o momentos y fuerzas internas correspondientes.</li>
+            <li class="text-justify">\(v_n\) = esfuerzo resistente nominal de cortante.</li>
+            <li class="text-justify">\(V_c\) = resistencia nominal al cortante proporcionada por el concreto.</li>
+            <li class="text-justify">\(V_e\) = fuerza cortante de diseño correspondiente al desarrollo de la resistencia probable a momento del elemento.</li>  
+            <li class="text-justify">\(V_i\) = fuerza cortante mayorada en la sección, debido a cargas aplicadas externamente que se presentan simultáneamente con Mmáx.</li> 
+            <li class="text-justify">\(V_s\) = resistencia nominal a cortante proporcionada por el refuerzo de cortante.</li>    
+            <li class="text-justify">\(V_u\) = fuerza cortante mayorada en la sección.</li> 
+            <li class="text-justify">\(w_u\) = carga mayorada por unidad de longitud de viga, o losa en una dirección.</li> 
+            <li class="text-justify">\(x\) = menor dimensión de la parte rectangular de una sección transversal.</li>
+            <li class="text-justify">\(y\) = mayor dimensión de la parte rectangular de una sección transversal.</li>
+            <li class="text-justify">\(y_t\) = distancia desde el eje que pasa por el centroide de la sección bruta a la fibra extrema en tracción, sin considerar el refuerzo.</li>
+            <li class="text-justify">\(β_1\) = factor que relaciona la profundidad de bloque rectangular equivalente de esfuerzos de compresión con la profundidad del eje neutro.</li>
+            <li class="text-justify">\(ε_s\) = deformación unitaria neta de tracción en el acero longitudinal.</li>
+            <li class="text-justify">\(ε_t\) = deformación unitaria neta de tracción en el acero longitudinal extremo en tracción, en el estado de resistencia nominal, excluyendo las deformaciones unitarias causadas por preesfuerzo efectivo, flujo plástico, retracción de fraguado, y variación de temperatura.</li>
+            <li class="text-justify">\(ρ\) = cuantía del refuerzo \(A_s\) evaluada sobre el área \(bd\).</li>
+            <li class="text-justify">\(ρ'\) = cuantía del refuerzo \(A_s'\) evaluada sobre el área \(bd\).</li>
+            <li class="text-justify">\(ρ_b\) = cuantía de refuerzo \(A_s\) evaluada sobre el área \(bd\) que produce condiciones balanceadas de deformación unitaria.</li>
+            <li class="text-justify">\(ρ_s\) = relación entre el volumen de refuerzo en espiral y el volumen total del núcleo confinado por la espiral (medido hasta el diámetro exterior de la espiral).</li>
+            <li class="text-justify">\(φ\) = factor de reducción de resistencia.</li>
+        </div>
+    </div>
+<!-----Requisitos geométricos----->
+    <div class="container p-2">
+        <button class="geometria-toggler btn btn-dark" type="button" data-toggle="collapse" data-target="#geometriaToggler"
+        aria-controls="geometriaToggler" aria-expanded="false" aria-label="Toggle geometria">Requisitos geométricos</button>
+        <div class="collapse geometria-collapse" id="geometriaToggler">
+            <div>
+                <li class="text-justify"><b>DMI:</b> <br> No presenta requisitos especiales<br><br>
+                </li>
+                <li class="text-justify"><b>DMO:</b> <br>
+                    Dimensiones de la sección transversal en columnas rectangulares<br> 
+                    <div class="text-center"><br>\[→ b,h≥25cm\]
+                    </div>   
+                    <br>Dimensiones de la sección transversal en columnas en forma de T, C, I
+                    <div class="text-center">
+                        \[→ b,h≥20cm\] <br>\[→ b*h≥625cm^2\]
+                    </div>  
+                </li>
+                <p class="text-right">(NSR10-, Sec. C.21.3.5.1)</p>
+            </div>
+            <div>
+                <li class="text-justify"><b>DES:</b> <br>
+                    Dimensiones de la sección transversal en columnas rectangulares 
+                    <div class="text-center"><br>\[→ b,h≥30cm\]
+                    </div>   
+                    <br>Dimensiones de la sección transversal en columnas en forma de T, C, I
+                    <div class="text-center">
+                    \[→ b,h≥2cm\] <br> \[→ b*h≥900cm^2\]
+                    </div>  
+                </li>
+                <p class="text-right">(NSR10-, Sec. C.21.6.1.1)</p>
+            </div>
+        </div>
+    </div>
+<!-----Refuerzo longitudinal----->  
+    <div class="container p-2">
+        <button class="r-longitudinal-toggler btn btn-dark" type="button" data-toggle="collapse" data-target="#r-longitudinalToggler"
+        aria-controls="r-longitudinalToggler" aria-expanded="false" aria-label="Toggle r-longitudinal">Refuerzo longitudinal</button>
+        <div class="collapse r-longitudinal-collapse" id="r-longitudinalToggler">
+            <div>
+                <li class="text-justify"><b>Cuantías de diseño:</b><br>La cuantía de diseño,\(ρ\), en columnas debe estar entre el 1% y el 4%. El límite superior de la cuantía tiene por objeto prevenir la congestión de refuerzo y evitar el desarrollo de grandes tensiones cortantes en la columna.</li>
+                <p class="text-right">(NSR-10, Sec. C.10.9.1)</p>
+            </div>
+            <div>    
+                <li class="text-justify"><b>Número de barras:</b> <br>
+                    El número mínimo de barras longitudinales en elementos sometidos a compresión debe ser:<br> 
+                    <div class="text-justify">
+                    \(→\) Mínimo 4 para barras dentro de estribos circulares o rectangulares.<br>
+                    \(→\) Mínimo 3 para barras dentro de estribos triangulares.<br> 
+                    \(→\) Mínimo 6 para barras rodeadas por espirales.<br> 
+                    </div>   
+                </li>
+                <p class="text-right">(NSR-10, Sec. C.7.6.3)</p>
+            </div>
+            <div>    
+                <li class="text-justify"><b>Separación del refuerzo:</b> <br>
+                    Las condiciones de separación "\(S\)" para el refuerzo longitudinal son:<br> 
+                    <div class="text-center">
+                    <br>\[→ S≥1.5 d_b\] 
+                    \[→ S≥4cm\]  
+                    \[→ S≥{4\over 3} d_{agregado}\]  
+                    </div>   
+                </li>
+                <p class="text-right">(NSR-10, Sec. C.7.6.3 y Sec. C.3.3.2)</p>
+            </div>
+            <div>    
+                <li class="text-justify"><b>Recubrimiento del refuerzo:</b> <br>
+                </li>
+                <div class="text-center">
+                    <img class="rounded mx-auto mw-100" src="{% static 'img/norma_columnasrecub.png' %}" alt="Recubrimiento columnas">          
+                </div>
+                <p class="text-right">(TABLA C.23 - C.7.7.1)</p>
+                Lo que quiere decir que:<br><br>
+                \(→\) Hormigón sin contacto con el suelo o intemperie  rectangulares<br> 
+                <div class="text-center">
+                <br>\[Rec≥4cm\]
+                </div>   
+                <br>\(→\) Hormigón colocado contra el suelo o expuesto permanentemente
+                <div class="text-center">
+                <br> \[Rec≥7.5cm \]
+                </div>    
+                <br>\(→\)Hormigón expuesto al suelo o intemperie
+                <div class="text-center">
+                <br> Para barras N°6 o mayores \(→ Rec≥5cm \)<br>
+                Para barras N°5 o menores \(→ Rec≥4cm \)<br><br>
+                </div>
+            </div>
+            <div>    
+                <li class="text-justify"><b>Zona de traslapos (DMO y DES):</b> <br>
+                Es posible realizar empalmes mecánicos, soldados a tope, conexiones mecánicas, empalmes a tope o por traslapo, pero son estos últimos los más usuales.<br> 
+                Los empalmes por traslapo se permiten
+                únicamente en la mitad central de la longitud del elemento y deben diseñarse como empalmes en tracción. Para pórticos de ductilidad especial, DES, las longitudes de empalme por traslapo se permiten únicamente en la mitad central de la longitud de la columna, deben calcularse como traslapos a tracción y deben estar confinados dentro del refuerzo transversal.
+                </li>
+                <p class="text-right">(NSR-10,Sec. C.21.3.5.3)</p> 
+                <p class="text-justify">También existen requisitos especiales para empalmes en columnas dependiendo de las solicitaciones de carga y momento de estas:</p>
+                <div class="text-center">
+                    <img class="rounded mx-auto mw-100" src="{% static 'img/norma_columnasempalmes.png' %}" alt="Recubrimiento columnas">     
+                <p class="text-right">(NSR-10,Fig- CR12.17)</p>      
+                </div>
+            </div>
+            <div>    
+                <li class="text-justify"><b>Resistencia mínima a la fluencia (DMO Y DES): </b> <br>
+                Las resistencias a flexión de las columnas deben satisfacer la ecuación C.21-4:
+                \[ΣM_{nc} ≥ 1.2ΣM_{nb}\]
+                \(ΣM_{nc}\) = Suma de los momentos nominales de flexión de las columnas que llegan al nudo, evaluados en las caras del nudo. La resistencia a la flexión de la columna debe calcularse para la fuerza axial mayorada, congruente con la dirección de las fuerzas laterales consideradas, que conduzca a la resistencia a la flexión más baja. 
+                <br>\(ΣM_{nb}\) = Suma de los momentos resistentes nominales flexión de las vigas que llegan al nudo, evaluadas en la cara del nudo. En vigas T, cuando la losa está en tracción debida a momento en la cara del nudo, el refuerzo de la losa dentro del ancho efectivo de losa definido en 8.12 debe suponerse que contribuye a M_nb  siempre que el refuerzo de la losa esté desarrollado en la sección crítica para flexión.  
+                <br>Las resistencias a la flexión deben sumarse de tal manera que los momentos de la columna se opongan a los momentos de la viga. Debe satisfacerse la ecuación (C.21-4) para momentos de vigas que actúen en ambas direcciones en el plano vertical del pórtico que se considera.  
+                </li>
+                <p class="text-right">(NSR-10, Sec. C.21.3.6.2)</p>   
+            </div>
+        </div>
+    </div>
+<!-----Refuerzo transversal----->
+    <div class="container p-2">
+        <button class="r-transversal-toggler btn btn-dark" type="button" data-toggle="collapse" data-target="#r-transversalToggler"
+        aria-controls="r-transversalToggler" aria-expanded="false" aria-label="Toggle r-transversal">Refuerzo transversal</button>
+        <div class="collapse r-transversal-collapse" id="r-transversalToggler">
+            <h4><u>DMI</u></h4><br>
+            <div>
+                <li class="text-justify"><b>Estribos:</b><br>
+                <div class="text-justify">
+                <br> Para refuerzo longitudinal ≤ N°10 \(→ estribos≥N°3\)<br>
+                Para refuerzo longitudinal > N°10 \(→ estribos≥N°4\)<br><br>
+                Se permiten estribos de diámetro N°2 en estructuras con disipación de energía mínima (DMI), sólo cuando las columnas soportan uno o dos pisos únicamente.<br><br>
+                </div></li>
+                <p class="text-right">(NSR-10, Sec. C.7.10.5.1)</p>
+            </div>
+            <div>
+                <li class="text-justify"><b>Espaciamiento:</b><br>El espaciamiento vertical de los estribos no debe exceder:<br>
+                <div class="text-justify">
+                \(→  16 d_b\) (Longitudinal).<br>
+                \(→  48 d_e\) (estribos).<br> 
+                \(→\)  La menor dimensión del elemento sometido a compresión.<br> 
+                </div>
+                <p class="text-right">(NSR-10, Sec. C.7.10.5.2)
+            </div>
+            <div>
+                <li class="text-justify"><b>Disposición:</b><br>
+                Los estribos deben disponerse de tal forma que cada barra longitudinal de esquina y barra alterna tenga apoyo lateral proporcionado por la esquina de un estribo con un ángulo interior no mayor de 135º, y ninguna barra longitudinal debe estar separada a más de 150 mm libres de una barra apoyada lateralmente. Cuando las barras longitudinales estén localizadas alrededor del perímetro de un círculo, se permite el uso de un estribo circular completo.
+                </li>   
+                <p class="text-right">(NSR-10, Sec. C.7.10.5.3)</p>
+            </div>
+            <br><h4><u>DMO</u></h4><br>
+            <div>
+                <li class="text-justify"><b>Estribos:</b><br>
+                    <div class="text-justify">
+                    <br> Para refuerzo longitudinal ≤ N°10 \(→ estribos≥N°3\)<br>
+                    Para refuerzo longitudinal > N°10 \(→ estribos≥N°4\)
+                    </div>
+                </li>
+                <p class="text-right">(NSR-10, Sec. C.7.10.5.1)</p>
+                <div>
+                    <li class="text-justify"><b>Ganchos:</b><br>Los estribos de confinamiento deben terminarse con ganchos sísmicos de 135° o más, con una extensión de 6\(d_b\), pero no menor de 75 mm, que abraza el refuerzo longitudinal y se proyecta hacia el interior de la sección del elemento.
+                    <p class="text-right">(NSR-10 Sec. C.7.1.4)</p>
+                </div>
+                <li class="text-justify"> <b>Espaciamiento:</b><br>En ambos extremos del elemento debe proporcionarse estribos cerrados de confinamiento con un espaciamiento \(s_0\) por una longitud \(l_0\), medida desde la cara del nudo. El espaciamiento \(s_0\) no debe exceder el menor de:
+                <div class="text-justify"><br>
+                    \(→ 8 d_b\) (Longitudinal de menor diámetro).<br>
+                    \(→ 16 d_b\) (Estribo cerrado de confinamiento).<br> 
+                    \(→ 1/3\) de la menor dimensión de la sección transversal.<br> 
+                    \(→ 15cm\)
+                </div> 
+                <br>Además se debe tener en cuenta que la longitud \(l_0\) no debe ser menor que la mayor entre:<br><br>
+                <div class="text-justify">
+                    \(→ 1/6\) de la luz libre de la columna.<br>
+                    \(→\) La mayor dimensión de la sección transversal de la columna.<br> 
+                    \(→ 50cm\)<br><br>
+                </div> 
+                Esta longitud \(l_0\) se tiene en cuenta en ambos extremos de la columna ya que en esa zona tiende a producirse fluencia por flexión
+                <p class="text-right"><br>(NSR-10, Sec. C.21.3.5.6)</p>
+                
+                La distancia vertical entre los estribos de los extremos del elemento y la parte superior de la zapata o losa de entrepiso, o el refuerzo horizontal más bajo de la losa, ábaco superior o descolgado para cortante, debe ser menor a la mitad del espaciamiento entre estribos. 
+                <p class="text-right"><br>(NSR-10, Sec. C.7.10.5.4)</p>
+                Cuando vigas o ménsulas concurran a una columna desde cuatro direcciones, se permite colocar el último estribo a no más de 75 mm debajo del refuerzo más bajo de la viga o ménsula de menor altura.
+                <p class="text-right"><br>(NSR-10, Sec. C.7.10.5.5)</p>
+                Fuera de la longitud \(l_0\), deben colocarse estribos de confinamiento con la misma disposición, diámetro de barra y resistencia a la fluencia con un espaciamiento que no debe ser mayor a 2 veces el espaciamiento utilizado en la longitud \(l_0\).
+                <p class="text-right"><br>(NSR-10, Sec. C.7.10.5.11)</p>
+                </li>   
+            </div>
+            <div>
+                <li class="text-justify"><b>Disposición:</b></li>
+                <br>La cuantía volumétrica de refuerzo en espiral o de estribos cerrados de confinamiento circulares, \(ρ_s\)  , no debe ser menor que la requerida por las ecuaciones C.21-1 y C.10-5:<br>
+                \[→ ρ_s = 0.08 {f'_c\over f_y} \]
+                \[→ ρ_s = 0.45({A_g\over A_{ch}} -1)*{f'_c\over f_y}\]
+                <p class="text-right"><br>(NSR-10 Sec. C.21.3.5.5)</p>
+                El área total de la sección transversal del refuerzo de estribos de confinamiento rectangulares, Ash colocados en la longitud l0 no debe ser menor que la requerida por las ecuaciones:     
+                    \[→ A_{sh} ≥ 0.2 {(sb_c*f'_c)\over f_{yt}} [({A_g\over A_{ch}} )-1]\]
+                    \[→ A_{sh} ≥ 0.6 {(sb_c*f'_c)\over f_{yt}} \]
+                <p class="text-right"><br>(NSR-10 Sec. C.21.3.5.7)</p>
+                El refuerzo transversal debe disponerse mediante estribos cerrados de confinamiento rectilíneos, como mínimo de diámetro N°3 con o sin ganchos suplementarios.
+                <p class="text-right"><br>(NSR-10 Sec. C.21.3.5.8)</p>
+                Pueden colocarse estribos de confinamiento de diámetro N°3 con fyt de 420MPa, con una separación s de 10cm si la distancia horizontal entre dos ramas paralelas de estribo es mayor que la mitad de la menor dimensión de la columna o 20cm
+                <p class="text-right"><br>(NSR-10 Sec. C.21.3.5.9)</p>
+                El primer estribo cerrado de confinamiento debe estar situado a no más de \({s_0\over 2}\) de la cara del nudo.
+                <p class="text-right"><br>(NSR-10 Sec. C.21.3.5.10)</p>
+                El refuerzo transversal del nudo debe cumplir con C.11.10
+                <p class="text-right"><br>(NSR-10 Sec. C.21.3.5.12)</p>
+            </div>
+            <br><h4><u>DES</u></h4><br>
+            <div>
+                <li class="text-justify"><b>Estribos:</b><br>
+                    <div class="text-justify">
+                    <br> Para refuerzo longitudinal ≤ N°10 \(→ estribos≥N°3\)<br>
+                    Para refuerzo longitudinal > N°10 \(→ estribos≥N°4\)
+                    </div>
+                </li>
+                <p class="text-right">(NSR-10, Sec. C.7.10.5.1)</p>
+                <div>
+                    <li class="text-justify"><b>Ganchos:</b><br>Los estribos de confinamiento deben terminarse con ganchos sísmicos de 135° o más, con una extensión de 6\(d_b\), pero no menor de 75 mm, que abraza el refuerzo longitudinal y se proyecta hacia el interior de la sección del elemento.
+                    <p class="text-right">(NSR-10 Sec. C.7.1.4)</p>
+                </div>
+                <li class="text-justify"> <b>Espaciamiento:</b><br>
+                La longitud \(l_0\) no debe ser menor que la mayor de:<br><br>
+                <div class="text-justify">
+                    \(→\) Altura del elemento en la cara del nudo o en la sección donde puede ocurrir fluencia por flexión.<br>
+                    \(→{1\over 6} \) de la luz libre del elemento.<br> 
+                    \(→ 45cm\)<br><br>
+                <p class="text-right"><br>(NSR-10, Sec. C.21.6.4.1)</p>
+                La separación del refuerzo transversal a lo largo del eje longitudinal del elemento no debe exceder la menor de:
+                <div class="text-justify"><br>
+                    \(→{1\over 4}\) de la dimensión mínima del elemento.<br>
+                    \(→ 6 d_b\) (Longitudinal de menor diámetro).<br> 
+                    \(→ s_0 = 100+{350-h_x\over 3}\)<br>
+                El valor de \(s_0\) no debe ser mayor a 150mm y no es necesario tomarlo menor a 100mm.
+                </div> 
+                <p class="text-right"><br>(NSR-10, Sec. C.21.6.4.3)</p>
+                <br>Más allá de la longitud \(l_0\), el resto de la columna debe contener refuerzo en forma de espiral o de estribo cerrado de confinamiento, con un espaciamiento, \(s\), medido centro a centro que no exceda al menor de 6\(d_b\) longitudinales de la columna o 150 mm, a menos se requieran mayores cantidades de refuerzo transversal  
+                <p class="text-right"><br>(NSR-10, Sec. C.21.6.4.5)</p>
+                </li>   
+            </div>
+            <div>
+                <li class="text-justify"><b>Disposición:</b></li>
+                <br>El refuerzo transversal debe disponerse mediante espirales sencillas o traslapadas, estribos cerrados de confinamiento circulares o estribos cerrados de confinamiento rectilíneos con o sin ganchos suplementarios.
+                <p class="text-right"><br>(NSR-10 Sec. C.21.6.4.2)</p>
+                La cuantía volumétrica de refuerzo en espiral o de estribos cerrados de confinamiento circulares, ρs, no debe ser menor que la requerida por la ecuación C.21-6 y C.10-5:
+                \[→ ρ_s = 0.12 {f'_c\over f_y} \]
+                \[→ ρ_s = 0.45({A_g\over A_{ch}} -1)*{f'_c\over f_y}\]
+                <p class="text-right"><br>(NSR-10 Sec. C.21.6.4.4)</p>
+                El área total de la sección transversal del refuerzo de estribos cerrados de confinamiento rectangulares, Ash , no debe ser menor que la requerida por las ecuaciones C.21-7 y C.21-8:     
+                    \[→ A_{sh} ≥ 0.3 {(sb_c*f'_c)\over f_{yt}} [({A_g\over A_{ch}} )-1]\]
+                    \[→ A_{sh} ≥ 0.9 {(sb_c*f'_c)\over f_{yt}} \]
+                <p class="text-right"><br>(NSR-10 Sec. C.21.6.4.4)</p>
+                Si el recubrimiento de concreto fuera del refuerzo transversal de confinamiento excede 100 mm, debe colocarse refuerzo transversal adicional. El recubrimiento de concreto sobre el refuerzo transversal adicional no debe exceder de 100 mm con un espaciamiento del refuerzo transversal adicional no superior a 300 mm 
+                <p class="text-right"><br>(NSR-10 Sec. C.21.6.4.7)</p>
+            </div>
+        </div>    
+    </div>
+<!-----Refuerzo transversal (Columnas circulares)----->
+    <div class="container p-2">
+        <button class="r-transversal-cir-toggler btn btn-dark" type="button" data-toggle="collapse" data-target="#r-transversal-cirToggler"
+        aria-controls="r-transversal-cirToggler" aria-expanded="false" aria-label="Toggle r-transversal-cir">Refuerzo transversal (Columnas circulares)</button>
+        <div class="collapse r-transversal-cir-collapse" id="r-transversal-cirToggler">
+            <div>
+                <li class="text-justify">Las espirales deben consistir en barras o alambres continuos espaciados uniformemente, con un tamaño y disposición que permitan su manejo y colocación sin distorsión de las dimensiones de diseño.</li>
+                <p class="text-right">(NSR-10, Sec. C.7.10.4.1)</p>
+            </div>  
+            <div>
+                <li class="text-justify">Para elementos construidos en obra, el diámetro de barra utilizada en espirales no debe ser menor de 10 mm.</li>
+                <p class="text-right">(NSR-10, Sec. C.7.10.4.2)</p>
+            </div> 
+            <div>
+                <li class="text-justify">El espaciamiento libre entre hélices de la espiral no debe exceder de 75 mm ni ser menor de 25mm.</li>
+                <p class="text-right">(NSR-10, Sec. C.7.10.4.3)</p>
+            </div> 
+            <div>
+                <li class="text-justify">El anclaje de la espiral debe consistir en 1.5 vueltas adicionales de la barra o alambre en cada extremo de la espiral.</li>
+                <p class="text-right">(NSR-10, Sec. C.7.10.4.4)</p>
+            </div>
+            <div>
+                <li class="text-justify">El refuerzo en espiral debe empalmarse, si se requiere, por alguno de los siguientes métodos:</li><br>
+                \(→\) Empalme por traslapo ≥ 300mm, pero también debe ser mayor a lo dispuesto en la tabla:
+                <div class="text-center">
+                <img class="rounded mx-auto mw-100" src="{% static 'img/norma_columnastraslaposesp.png' %}" alt="Largos mínimos traslapos espirales">
+                </div><br>
+                \(→\) Empalme mecánico o soldado completo de acuerdo con C.12.14.3.
+                <p class="text-right"><br>(NSR-10, Sec. C.7.10.4.5)</p>
+            </div>
+            <div>
+                <li class="text-justify">Las espirales deben extenderse desde la parte superior de la zapata o losa en cualquier nivel, hasta la altura del refuerzo horizontal más bajo del elemento soportado. </li>
+                <p class="text-right">(NSR-10, Sec. C.7.10.4.6)</p>
+            </div>
+            <div>
+                <li class="text-justify">Cuando no existan vigas o ménsulas en todos los lados de una columna, deben colocarse estribos por encima de la terminación de la espiral hasta la parte inferior de la losa, ábaco, o descolgado para cortante. </li>
+                <p class="text-right">(NSR-10, Sec. C.7.10.4.7)</p>
+            </div>
+            <div>
+                <li class="text-justify">En columnas con capitel, la espiral debe extenderse hasta un nivel en el cual el diámetro o ancho del capitel sea dos veces el de la columna.</li>
+                <p class="text-right">(NSR-10, Sec. C.7.10.4.8)</p>
+            </div>
+            <div>
+                <li class="text-justify">Las espirales deben mantenerse firmemente colocadas y bien alineadas</li>
+                <p class="text-right">(NSR-10, Sec. C.7.10.4.9)</p>
+            </div>
+        </div>
+    </div>
+<!-----Resistencia a cortante----->
+    <div class="container p-2">
+        <button class="cortante-toggler btn btn-dark" type="button" data-toggle="collapse" data-target="#cortanteToggler"
+        aria-controls="cortanteToggler" aria-expanded="false" aria-label="Toggle cortante">Resistentia a cortante</button>
+        <div class="collapse cortante-collapse" id="cortanteToggler">
+            <br><h4><u>DMO</u></h4><br>
+            <div>
+                <li class="text-justify">El \(φV_n\) de vigas y columnas que resisten efectos sísmicos, \(E\), no debe ser menor que el menor de:
+                    <br><br>\(→\)  La suma del cortante asociado con el desarrollo de los momentos nominales del elemento en cada extremo restringido de la luz libre y el cortante calculado para cargas gravitacionales mayoradas.
+                    <br>\(→\) El cortante máximo obtenido de las combinaciones de carga de diseño que incluyan \(E\), considerando \(E\) como el doble del prescrito por el Título A del Reglamento NSR-10.
+                </li>        
+                    <p class="text-right">(NSR-10, Sec. C.21.3.3)</p>
+            </div>
+            <div>
+                <li class="text-justify">La fuerza de cortante de diseño, \(V_e\) , se debe determinar considerando las máximas fuerzas que se puedan generar en las caras de los nudos en cada extremo del elemento. Estas fuerzas en el nudo se deben determinar usando las resistencias a flexión máximas probables \(M_{pr}\) en cada extremo del elemento, correspondientes al rango de cargas axiales mayoradas, \(P_u\) , que actúan en él. No es necesario que las fuerzas cortantes en el elemento sean mayores que aquellas determinadas a partir de la resistencia de los nudos, basada en \(M_{pr}\) de los elementos transversales que llegan al nudo. En ningún caso Ve debe ser menor que el cortante mayorado determinado a partir del análisis de la estructura 
+                </li>        
+                    <p class="text-right">(NSR-10, Sec. C.21.6.5.1)</p>
+                    <div>
+                        <li class="text-justify">El refuerzo transversal en la longitud \(l_o\) , identificada en C.21.6.4.1, debe diseñarse para resistir el cortante suponiendo \(V_c=0\) cuando ocurran simultáneamente: 
+                            <br><br>\(→\)  El esfuerzo de cortante inducido por sismo, calculado de acuerdo con C.21.6.5.1, representa la mitad o más de la resistencia máxima al cortante requerida dentro de \(l_o\). 
+                            <br>\(→\) La fuerza axial de compresión mayorada, \(P_u\), incluyendo el efecto sísmico es menor que \({A_gf_c´\over 20}\).
+                        </li>        
+                            <p class="text-right">(NSR-10, Sec. C.21.6.5.2)</p>
+                    </div>
+            </div>
+        </div>
+    </div>       
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

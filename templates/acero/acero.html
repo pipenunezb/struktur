@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/styling-topics.css' %}">
+
+<div class="header acero px-3">
+    <h1 class="pb-2">Acero Óptimo</h1>
+</div>
+
+<div class="container-fluid">
+    <p>El cálculo del acero óptimo es de gran importancia para que el diseño de los elementos cumpla con los requisitos
+        de resistencia y a su vez se adopte la solución más económica posible. <a target="_blank"
+            href="../../static/descargas/GUIA ACERO OPTIMO.pdf">VER GUÍA</a></p>
+</div>
+<div class="container entradas acero row justify-content-around">
+    <div class="diseño entrada col">
+        <a href='/acero_calculos/' class="d-flex align-items-center justify-content-center">
+            <h4>Cálculo de acero suministrado</h4>
+        </a>
+    </div>
+</div>
+{% endblock %}

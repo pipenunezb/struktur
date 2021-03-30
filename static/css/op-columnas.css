@@ -1,0 +1,35 @@
+div.op1 {background-image: url(../img/diagramas/op1.jpg);}
+div.op2 {background-image: url(../img/diagramas/op2.jpg);}
+div.op3 {background-image: url(../img/diagramas/op3.jpg);}
+div.op4 {background-image: url(../img/diagramas/op4.jpg);}
+div.op5 {background-image: url(../img/diagramas/op5.jpg);}
+div.op6 {background-image: url(../img/diagramas/op6.jpg);}
+div.op7 {background-image: url(../img/diagramas/op7.jpg);}
+div.op8 {background-image: url(../img/diagramas/op8.jpg);}
+div.op9 {background-image: url(../img/diagramas/op9.jpg);}
+div.op10 {background-image: url(../img/diagramas/op10.jpg);}
+div.op11 {background-image: url(../img/diagramas/op11.jpg);}
+div.op12 {background-image: url(../img/diagramas/op12.jpg);}
+div.op13 {background-image: url(../img/diagramas/op13.jpg);}
+div.op14 {background-image: url(../img/diagramas/op14.jpg);}
+div.op15 {background-image: url(../img/diagramas/op15.jpg);}
+div.op16 {background-image: url(../img/diagramas/op16.jpg);}
+
+div.op {
+    background-size: cover;
+    height: 5rem;
+    width: 5rem;
+}
+div.op a {
+    height: 100%;
+    width: 100%;
+} 
+div.op a p {
+    background-color: #181818e0;
+    color: #fff;
+    margin: 0;
+    width: 100%;
+    height: 23%;
+    text-align: center;
+    font-size: 14px;
+}

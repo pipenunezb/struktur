@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/styling-topics.css' %}">
+<div class="header diagramas px-3">
+    <h1 class="pb-2">Diagramas de Interacción</h1>
+</div>
+<div class="container-fluid">
+    <p>Los diagramas de interacción son gráficos que permiten chequear la resistencia de una columna dependiendo de sus
+        dimensiones, del refuerzo suministrado y de la disposición de este, son utilizadas como base para el diseño. <a target="_blank" href="../../static/descargas/GUIA DIAGRAMAS DE INTERACCION.pdf">VER GUÍA</a></p>
+</div>
+<div class="container entradas diagramas row justify-content-around">
+    <div class="normas entrada col">
+        <a href='/diagramas_normas/' class="d-flex align-items-center justify-content-center">
+            <h4>Fundamento teórico</h4>
+        </a>
+    </div>
+    <div class="diseño entrada col">
+        <a href='/diagramas_calculos/' class="d-flex align-items-center justify-content-center">
+            <h4>Diagramas de interacción</h4>
+        </a>
+    </div>
+</div>
+
+{% endblock %}

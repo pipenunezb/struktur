@@ -1,0 +1,11 @@
+button.btn {
+    min-width: 304px;
+    font-weight: bold;
+    font-size: 14px;
+}
+div.collapse {
+    margin-top: 12px;
+}
+p.text-right {
+    font-size: 12px;
+}

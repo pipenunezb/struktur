@@ -1,0 +1,27 @@
+{% extends "../layout.html" %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/styling-topics.css' %}">
+<div class="header vigas px-3">
+    <h1 class="pb-2">Vigas</h1>
+</div>
+<div class="container-fluid">
+    <p>Las vigas son elementos estructurales, horizontales o aproximadamente horizontales, cuya dimensión longitudinal
+        es mayor que las otras dos y su solicitación principal es el momento flector, acompañado o no de cargas axiales,
+        fuerzas cortantes y torsiones. <a target="_blank" href="../../static/descargas/GUIA VIGAS.pdf">VER GUÍA</a></p>
+</div>
+<div class="container entradas vigas row justify-content-around">
+    <div class="normas entrada col">
+        <a href='/vigas_normas/' class="d-flex align-items-center justify-content-center">
+            <h4>Normas</h4>
+        </a>
+    </div>
+    <div class="diseño entrada col">
+        <a href='/vigas_calculos/' class="d-flex align-items-center justify-content-center">
+            <h4>Diseño a flexión</h4>
+        </a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+main {
+    min-height: 455px;
+}
+a.navbar-brand {
+    font-family: 'Overlock SC', sans-serif;
+    font-size: x-large;
+}
+body footer, footer a {
+    color: rgb(177, 177, 177);
+}
+.footer-copyright {
+    background: rgb(35, 33, 39);
+}
+.row {
+    margin-right: 0;
+}
+@media (min-width:768px) {
+    .contenedor {
+        max-width: 1000px;
+        margin: 10px auto!important;
+        padding: 15px;
+    }
+    @media (max-width:1040px) {
+        .contenedor {
+            margin: 10px!important;
+        }
+    }
+}

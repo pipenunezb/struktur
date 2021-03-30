@@ -1,0 +1,183 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="{% static 'css/styling-topics.css' %}">
+<link rel="stylesheet" href="{% static 'css/calc-style/st-calculos.css' %}">
+<link rel="stylesheet" href="{% static 'css/op-columnas.css' %}">
+<link rel="stylesheet" href="{% static 'css/onof.css' %}">
+
+<div class="header columnas px-3">
+    <h1 class="pb-2">Columnas</h1>
+</div>
+
+<div class="row d-flex justify-content-around" style="max-width: 1000px;">
+    <div class="card m-4">
+        <div class='card-body p-3'>
+            <div class="text-center">
+                <h3 class="dark-grey-text mb-5"><strong>Datos de Entrada</strong></h3>
+            </div>
+            <form action="/columnas_calculos/" method="POST">
+                {% csrf_token %}
+                {% for field in form_calc %}
+                <div id='group-{{ field.name }}'>
+                    <div class='form-group validate {{ field.name }}'>
+                        {{ field }}
+                        <span class="form-span {{ field.name }}" data-placeholder="{{ field.label }}"></span>
+                    </div>
+                    <br>
+                </div>
+                {% endfor %}
+                <div class="d-flex justify-content-center">
+                    <input class="submit columnas m-4" id="submit_calc" type="submit" name='submit_calc' value="Calcular">
+                </div>
+            </form>
+        </div>  
+    </div>
+    <div class="d-flex flex-column">
+        <img class ="m-4 rounded" src="../../static/img/columna.jpg" alt="">
+        <div class="d-flex justify-content-center">
+            <p class="onoff-input m-0 mr-2">Mostrar texto</p>
+            <label class="switch m-0">
+                <input class="columna" type="checkbox" checked>
+                <span class="slider round"></span>
+            </label>
+        </div>   
+    </div>
+</div>
+<div class="mb-4 contenedor">
+    {% if submit_calc == "Calcular" %}
+        <input type="hidden" id="check" value="check">
+        <ol class="step pl-0"></ol> 
+        <li class="step-element pb-0">
+            <div class="step-number"><span class="number">1</span></div>
+            <div class="step-excerpt">
+                <h6 class="font-weight-bold dark-grey-text mb-3 pt-3">Parámetros K y R</h6>
+                <p class="onoff">En este paso calcularemos los parámetros K y R con los que entraremos a los ejes Y y X de los diagramas de interacción respectivamente.</p>
+                <p class="onoff">Estos diagramas de interacción son adimensionales y nos serviran de ayuda para determinar la cuantía de la columna.</p>
+                <p>\[K = {Pu \over f'c*b*h}\]</p>
+                <p>\[K = { {{Pu}} \over {{fc}}*{{b}}*{{h}} }\]</p>
+                <p>\[K = {{K}}\]</p><br>
+                <p>\[R = {Mu \over f'c*b*h^2}\]</p>
+                <p>\[R = { {{Mu}} \over {{fc}}*{{b}}*{{h}}^2 }\]</p>
+                <p>\[R = {{R}}\]</p>
+            </div>
+            
+        </li>
+        <li class="step-element pb-0">
+            <div class="step-number"><span class="number">2</span></div>
+            <div class="step-excerpt">
+                <h6 class="font-weight-bold dark-grey-text mb-3 pt-3">Relación g</h6>
+                <p class="onoff">A continuación determinaremos la relación \(g\) entre el nucleo de hormigón y la dimensión exterior de la columna.</p>
+                <p class="onoff">Con este valor definiremos que diagramas utilizar.</p>
+                <p>\[g = {h-2d' \over h} \]</p>
+                <p>\[g = { {{h}}-2{{dP}} \over {{h}} } \]</p>
+                <p>\[g = {{g}}\]</p>
+                <p class="showg">Como \(g\) solo tiene un decimal, entraremos directamente al diagrama de su valor.</p>
+                
+                <div class="showg1g2">
+                    <p>Como \(g\) tiene más de un decimal, es necesario determinar los valores de \(g_1\) y \(g_2\)</p>
+                    <p class="onoff">Para calcular \(g_1\), se redondea el valor de \(g\) hacia abajo usando un decimal</p>
+                    <p>\(g_1 =\) <span id="id_g1" value="{{g1}}">\({{g1}}\)</span></p>
+                    <p class="onoff">Para calcular \(g_2\), se redondea el valor de \(g\) hacia arriba usando un decimal</p>
+                    <p>\(g_2 =\) <span id="id_g2" value="{{g2}}">\({{g2}}\)</span></p>
+                </div>
+                
+                <p>Por favor seleccione la distribución de acero, teniendo en cuenta que en los siguientes esquemas de referencia la longitud horizontal es \(h\) y la longitud vertical es \(b\).</p>
+                <p class="onoff">Puede utilizar cualquiera de las opciones, pero lo más recomendable es utilizar una distribución que se asemeje a la relación de aspecto \(b/h\)</p>
+                <p>(Para ver cómo seleccionar e introducir los datos, <a target="_blank" href="../../static/descargas/GUIA COLUMNAS.pdf">revise la guía</a>)</p>
+                <div class="d-flex flex-wrap mb-3 justify-content-center" style="max-width: 560px;">
+                <div class="op m-1 op1"><a target="_blank" class="d-flex align-items-end" href="../../static/img/diagramas/Op1_{{fc}}.jpg"><p>opción 1</p></a></div>
+                <div class="op m-1 op2"><a target="_blank" class="d-flex align-items-end" href="../../static/img/diagramas/Op2_{{fc}}.jpg"><p>opción 2</p></a></div>
+                <div class="op m-1 op3"><a target="_blank" class="d-flex align-items-end" href="../../static/img/diagramas/Op3_{{fc}}.jpg"><p>opción 3</p></a></div>
+                <div class="op m-1 op4"><a target="_blank" class="d-flex align-items-end" href="../../static/img/diagramas/Op4_{{fc}}.jpg"><p>opción 4</p></a></div>
+                <div class="op m-1 op5"><a target="_blank" class="d-flex align-items-end" href="../../static/img/diagramas/Op5_{{fc}}.jpg"><p>opción 5</p></a></div>
+                <div class="op m-1 op6"><a target="_blank" class="d-flex align-items-end" href="../../static/img/diagramas/Op6_{{fc}}.jpg"><p>opción 6</p></a></div>
+                <div class="op m-1 op7"><a target="_blank" class="d-flex align-items-end" href="../../static/img/diagramas/Op7_{{fc}}.jpg"><p>opción 7</p></a></div>
+                <div class="op m-1 op8"><a target="_blank" class="d-flex align-items-end" href="../../static/img/diagramas/Op8_{{fc}}.jpg"><p>opción 8</p></a></div>
+                <div class="op m-1 op9"><a target="_blank" class="d-flex align-items-end" href="../../static/img/diagramas/Op9_{{fc}}.jpg"><p>opción 9</p></a></div>
+                <div class="op m-1 op10"><a target="_blank" class="d-flex align-items-end" href="../../static/img/diagramas/Op10_{{fc}}.jpg"><p>opción 10</p></a></div>
+                <div class="op m-1 op11"><a target="_blank" class="d-flex align-items-end" href="../../static/img/diagramas/Op11_{{fc}}.jpg"><p>opción 11</p></a></div>
+                <div class="op m-1 op12"><a target="_blank" class="d-flex align-items-end" href="../../static/img/diagramas/Op12_{{fc}}.jpg"><p>opción 12</p></a></div>
+                <div class="op m-1 op13"><a target="_blank" class="d-flex align-items-end" href="../../static/img/diagramas/Op13_{{fc}}.jpg"><p>opción 13</p></a></div>
+                <div class="op m-1 op14"><a target="_blank" class="d-flex align-items-end" href="../../static/img/diagramas/Op14_{{fc}}.jpg"><p>opción 14</p></a></div>
+                <div class="op m-1 op15"><a target="_blank" class="d-flex align-items-end" href="../../static/img/diagramas/Op15_{{fc}}.jpg"><p>opción 15</p></a></div>
+                <div class="op m-1 op16"><a target="_blank" class="d-flex align-items-end" href="../../static/img/diagramas/Op16_{{fc}}.jpg"><p>opción 16</p></a></div>
+                </div>   
+            </div>
+        </li>
+           
+        
+
+        <div id="paso-cuantia">
+            <li class="step-element pb-0">
+                <div class="step-number"><span class="number">3</span></div>
+                <div class="step-excerpt">
+                    <h6 class="font-weight-bold dark-grey-text mb-3 pt-3">Cuantía</h6>
+                    
+                    <div class="showg1g2">
+                        <p class="onoff">Para hallar el valor de cuantía que necesitamos, debemos interpolar los valores de cuantía que encontramos en los diagramas de interacción, de la siguiente manera:</p>
+                        <p>\(ρ = { ρ1-{(g-g1)*(ρ1-ρ2) \over g2-g1} } \)</p>
+                        <p>\(ρ = { {{cuan1}}-{({{g}}-{{g1}})*({{cuan1}}-{{cuan2}}) \over {{g2}}-{{g1}} } }\)</p>
+                    </div>
+                    <p>\(ρ = {{cuanti}} \)</p>
+                    <input type="hidden" class="cuan-min" value="{{cuanti}}">
+                    <p class="onoff">Debemos verificar que cumpla con la cuantía mínima, de no ser así, continuaremos con el valor de cuantía mínima (vease NSR-10, Sec. C.10.9.1)</p>
+                    <p>Si \((0.01 > ρ) → ρ = 0.01\)</p>
+                    <p><span class="ver_min_F">NO CUMPLE, por lo tanto usaremos </span>\(ρ = {{cuantia}}\)<span class="ver_min_T"> \(CUMPLE\) </span></p>
+                    <p class="onoff">Ahora, rectificaremos que se encuentre por debajo de la cuantia máxima (vease NSR-10, Sec. C.10.9.1)</p>
+                    <p>\({{max_cuan}}\)</p>
+                </div>
+                
+            </li>
+            <li class="step-element pb-0">
+                <div class="step-number"><span class="number">4</span></div>
+                <div class="step-excerpt">
+                    <h6 class="font-weight-bold dark-grey-text mb-3 pt-3">Área de acero</h6>
+                    <p class="onoff">En este paso procedemos a calcular el área de acero teórico que necesita la columna para responder satisfactoriamente ante las solicitaciones.</p>
+                    <p>\[asc = ρ*b*h\]</p>
+                    <p>\[asc = {{cuantia}}*{{b}}*{{h}}\]</p>
+                    <p>\[asc = {{asc}} [cm²]\]</p>
+                    <p class="onoff">El acero suministrado es escogido por el programa teniendo en cuenta: La distribución de aceros escogida y la combinación de barras con menor area, que cumpla con el parametro \(Ass ≥ Asc\)</p>
+                    <p>STRUKTUR determinó que la menor cantidad de acero que cumple con los criterios establecidos es:</p>
+                    <p>\({{espacios}}\) barras \(N{{dB}}\)</p>
+                    <p>\({{barb}}\) barras en las caras de longitub \(b\)</p><p>\({{barh}}\) barras en las carras de longitud \(h\)</p>
+                    <p class="onoff">El área de acero suministrado es de:</p>
+                    <p class="text-left">\[Ass = {{ass_show}} [cm²]\]</p>
+                </div>
+                
+            </li>
+            <li class="step-element pb-0">
+                <div class="step-number"><span class="number">5</span></div>
+                <div class="step-excerpt">
+                    <h6 class="font-weight-bold dark-grey-text mb-3 pt-3">Comprobaciones de separación</h6>
+                    <p>Para barras longitudinales \(N{{dB}}\), se deben usar estribos \(est = N{{est}}\) (vease NSR-10, Sec. C.7.10.5.1)</p><br>
+                    <p class="onoff">Calcularemos mediante la siguiente expresión, la separación entre barras en las caras \(b\) y \(h\)</p>
+                    <p>\(sep_b = { b-2(rec+est*{2.54 \over 8})-(Barras_b*dB*{2.54 \over 8}) \over Barras_b-1}\)</p>
+                    <p>\(sep_b = { {{b}}-2({{rec}}+{{est}}*{2.54 \over 8})-({{barb}}*{{dB}}*{2.54 \over 8}) \over {{barb}}-1}\)</p>
+                    <p>\(sep_b = {{sepb}}[cm]\)</p><br>
+                    <p>\(sep_h = { h-2(rec+est*{2.54 \over 8})-(Barras_h*dB*{2.54 \over 8}) \over Barras_h-1}\)</p>
+                    <p>\(sep_h = { {{h}}-2({{rec}}+{{est}}*{2.54 \over 8})-({{barh}}*{{dB}}*{2.54 \over 8}) \over {{barh}}-1}\)</p>
+                    <p>\(sep_h = {{seph}}[cm]\)</p>
+                    <p>La separación de barras longitudinales en columnas debe cumplir con los siguientes criterios:</p>
+                    <p>\(sep ≥ 1.5dB\) (vease NSR-10, Sec. C.7.6.3)</p>
+                    <p>\(sep ≥ 4cm\) (vease NSR-10, Sec. C.7.6.3)</p>
+                    <p>\(sep ≥ {4 \over 3}Diametro\) \(agregado\) (vease NSR-10, Sec. C.3.3.2)</p>
+                    <p>Separación en \(b\) {{separacionb}}</p>
+                    <p>Separación en \(h\) {{separacionh}}</p>
+                </div>
+                
+            </li>
+        </div>
+    {% endif %}
+
+</div>
+
+
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="{% static 'js/js-columna.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,239 @@
+div.card, div.row img {
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+}
+@media (max-width: 768px) {
+    div.row img {
+        display: none;
+    }
+}
+
+.form-control, #id_element, #id_carga, #id_apoyo, #id_fc, #id_fy, #id_op_cuantia, #id_op_acero, #id_dist {
+    border: 0;
+    background: transparent;
+    color: #777777;
+    height:30px;
+}
+.form-control {
+    font-size: 18px;
+    color: #777777;
+    line-height: 1.2;
+    display: block;
+    height: 30px;
+    background: transparent;
+    padding: 0 5px;
+}
+.lg, #id_carga, #id_apoyo, #id_op_cuantia, #id_op_acero, #id_dist {
+    width: 230px;
+}
+.sm {
+    width: 91px;
+}
+input {
+    outline: none;
+    border: none;
+    height: 40px;
+}
+input.submit {
+    width: 100%;
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 5px;
+}
+.submit.vigas {
+    background-color: #30e749;
+}
+.submit.columnas {
+    background-color: #16BFFD
+}
+.submit.acero {
+    background-color: #fb2020
+}
+.submit.diagramas {
+    background-color: #bb1bfd
+}
+
+div.b_diag {
+    background-color: #bb1bfd;
+    border-radius: 5px;
+    transition: .4s;
+} div.b_diag:hover {background-color: #fde61b;}
+div.b_diag a.image-link {
+    height: 100%;
+    width: 100%;
+    font-size: 24px;
+    font-weight: bolder;
+    color: #ffffff;
+} .b_diag a:hover {text-decoration: none;}
+
+.form-group {
+    width: fit-content;
+    position: relative;
+    border-bottom: 2px solid #777777;
+    margin: 0px 24px;
+}
+.form-group.fc, .form-group.fy, .form-group.element {
+    width: 230px;
+}
+.form-group span.label{
+    font-size: 18px;
+    color: #777777;
+    line-height: 1.2;
+    background: transparent;
+    padding: 0 5px;
+}
+
+.form-span {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.form-span::before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+    background: #777777;
+}
+
+.form-span::after {
+    font-size: 18px;
+    color: #777777;
+    line-height: 1.2;
+    content: attr(data-placeholder);
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 5px;
+    left: 0px;
+    padding-left: 5px;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.input.form-control + .form-span::before {
+    width: 100%;
+}
+
+.input.form-control + .form-span::after {
+    top: -20px;
+    font-size: 15px;
+}
+
+.validate {
+    position: relative;
+}
+
+input.submit {
+    align-content: center;
+}
+.row {
+    margin: auto
+}
+div.card {
+    width: 20rem;
+}
+
+/*------------------ calculos -------------------*/
+
+.step {
+    list-style: none;
+    margin: 0;
+}
+.step-element {
+    display: flex;
+    padding: 1rem 0;
+}
+.step-number {
+    position: relative;
+    width: 4rem;
+    flex-shrink: 0;
+    text-align: center;
+}
+@media (min-width:425px){
+    .step-excerpt {
+    margin-right: 64px;
+}
+}
+
+.number {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    border-radius: 10rem;
+}
+.step-number .number {
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+.step-number .number {
+    width: 51px;
+    height: 51px;
+    line-height: 51px;
+}
+.step-number::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 51px;
+    bottom: -1rem;
+    margin-left: 0;
+    border-left: 2px dashed;
+}
+/*--------VIGAS-------*/
+.step-number.vigas .number {
+    background: -webkit-linear-gradient(55deg, #30e749 25%, #295adf);
+}
+.step-number.vigas::before {
+    border-image-source: linear-gradient(to bottom, #30e749 25%, #295adf);
+    border-image-slice: 1;
+}
+/*--------COLUMNAS-------*/
+.step-number.columnas .number {
+    background: -webkit-linear-gradient(55deg, #16BFFD 15%, #CB3066);
+}
+.step-number.columnas::before {
+    border-image-source: linear-gradient(to bottom, #16BFFD 15%, #CB3066);
+    border-image-slice: 1;
+}
+/*--------ACERO---------*/
+.step-number.acero .number {
+    background: -webkit-linear-gradient(55deg, #fb2020 15%, #ff8c09);
+}
+.step-number.acero::before {
+    border-image-source: linear-gradient(to bottom, #fb2020 15%, #ff8c09);
+    border-image-slice: 1;
+}
+/*--------DIAGRAMAS---------*/
+.step-number.diagramas .number {
+    background: -webkit-linear-gradient(55deg, #fde61b 5%, #bb1bfd);
+}
+.step-number.diagramas::before {
+    border-image-source: linear-gradient(to bottom, #fde61b 5%, #bb1bfd);
+    border-image-slice: 1;
+}
+span.mn {
+    height: 1rem;
+}
+
+/*---------- organizacion de mathjax -----------*/
+
+.text-left mjx-container {
+    text-align: left!important;
+}

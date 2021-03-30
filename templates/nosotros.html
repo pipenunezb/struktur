@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/nosotros.css' %}">
+<div>
+    <div class="container p-0 my-3 rounded">
+        <div class="logo text-center mb-2">
+            <h1 class="m-0 p-3 rounded-top">STRUKTUR</h1>
+        </div>
+
+        <p class="m-0 p-3 text-justify">Struktur es una aplicación intuitiva de aprendizaje y enseñanza orientada al área de estructuras de hormigón reforzado con el objetivo de ofrecer a los estudiantes de ingeniería civil una nueva herramienta de apoyo con la cual afianzar los conocimientos adquiridos en sus clases presenciales centrando su enfoque en las temáticas relacionadas con el diseño de vigas y columnas de concreto reforzado, teniendo en cuenta los requisitos expuestos por la Norma Sismorresistente Colombiana vigente (NSR-10). Su desarrollo se realizó mediante las técnicas más populares de programación web como lo son HTML, CSS, Javascript y Python, obteniendo una aplicación de fácil acceso desde ordenadores y dispositivos móviles. Además, se optó por el uso de frameworks (Django) y bibliotecas multiplataformas (Bootstrap) como base en el proceso de programación y desarrollo web, obteniendo como resultado un aplicativo eficiente y oportuno tanto para estudiantes como profesores en el proceso educativo.</p>
+        
+        <div>
+        <h2 class="text-center m-0">NUESTRO EQUIPO</h2>
+        </div>
+        
+        <div class="row m-0 p_i">
+            <div class="p-3 col-md-6"><p class="text-justify m-0">Este proyecto fue realizado por Andrés Felipe Núñez Bustamante y Juan Miguel Bautista Ferrer, dos estudiantes de ingeniería civil como la mayoría de ustedes, que de la mano del Ing. Sergio Flórez Causil y Hector Suarez Tejada quisieron ir más allá de las clases presenciales y buscaron una alternativa a la enseñanza de temáticas de su carrera, pensando en las necesidades de los alumnos y profesores en base a sus experiencias.<br>Esta no es una herramienta finalizada, de hecho esperamos que, así como nosotros incursionamos en el tema de la programación, sean muchos más estudiantes que hagan parte de este equipo que tiene como objetivo hacerles más fácil la vida universitaria a otros, aportando un granito de arena en su proceso de aprendizaje.</p></div>
+            <div class="text-center col-md-6 img1 p-0"></div>
+        </div>
+
+        <p class="px-3 py-4 float m-0 text-justify">Nuestro objetivo general fue elaborar una aplicación intuitiva de estructuras con el fin de brindar a los estudiantes de ingeniería civil de Colombia una nueva herramienta de estudio, simple y detallada con información básica sobre como diseñar vigas y columnas mediante las técnicas más novedosas de desarrollo web, para lo que se requiere realizar un estudio los métodos utilizados actualmente en la industria de la tecnología, así como analizar y clasificar de manera organizada los datos y procesos de diseño de vigas y columnas suministrados por la NSR-10.</p>
+        
+        <div class="row m-0 i_p">
+            <div class="text-center col-md-6 img2 p-0"></div>
+            <div class="p-3 col-md-6"><p class="text-justify m-0">La NSR-10 es el Reglamento Colombiano de Construcción Sismo Resistente y se encuentra dividido en 11 títulos, los cuales abarcan temas diferentes. El Título C es un documento muy riguroso que comprende el tema de concreto estructural, pero en su extensa información se pueden llegar a encontrar datos de un mismo tema dispersos en varios capítulos del texto, volviendo para el estudiante una tarea compleja encontrar toda la información requerida para trabajar problemas sobre un tema específico.</p></div>
+        </div>
+
+        <div>
+            <h2 class="nosotros text-center m-0">NOSOTROS</h2>
+        </div>
+
+        <div class="row m-0 p-3">
+            <div class="col-sm-6"><div class="top"></div>
+                <div class="contact mb-4">
+                    <div class="team-block">
+                        <div class="team-man">
+                            <img src="../static/img/nosotros/pipex.jpg" alt="Andrés Felipe Núñez Bustamante">
+                        </div>
+                        <div class="team-description text-center">
+                            <div class="title">
+                                <h3>Andrés Felipe Núñez B.</h3>
+                                <span>Ingeniero Civil</span>
+                            </div>
+                            <p>Egresado de la Universidad Pontificia Bolivariana. Reconocido con 'Beca de excelencia'. Realizó un semestre de intercambio en Santiago, Chile.</p>
+                            <div class="team-social-network text-center pb-3">
+                                <a href="mailto:andres.nunezb@hotmail.com?Subject=Contacto%20a%20traves%20de%20STRUKTUR"><ion-icon name="mail-outline"></ion-icon></a>
+                                <a href="https://twitter.com/pipenunezb28"><ion-icon name="logo-twitter"></ion-icon></a>
+                                <a href="https://www.instagram.com/pipenunezb/"><ion-icon name="logo-instagram"></ion-icon></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6"><div class="top"></div>
+                <div class="contact mb-4">
+                    <div class="team-block">
+                        <div class="team-man">
+                            <img src="../static/img/nosotros/faurio.jpg" alt="Juan Miguel Bautista Ferrer">
+                        </div>
+                        <div class="team-description text-center">
+                            <div class="title">
+                                <h3>Juan Miguel Bautista F.</h3>
+                                <span>Ingeniero Civil</span>
+                            </div>
+                            <p>Egresado de la Universidad Pontificia Bolivariana. Realizó un semestre de intercambio en Rosario, Argentina.</p>
+                            <div class="team-social-network text-center pb-3">
+                                <a href="mailto:juan-bf@hotmail.com?Subject=Contacto%20a%20traves%20de%20STRUKTUR"><ion-icon name="mail-outline"></ion-icon></a>
+                                <a href="https://twitter.com/BFJuanmi"><ion-icon name="logo-twitter"></ion-icon></a>
+                                <a href="https://www.instagram.com/juanmibautistaf/"><ion-icon name="logo-instagram"></ion-icon></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+{% endblock %}

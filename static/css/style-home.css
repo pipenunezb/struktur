@@ -1,0 +1,70 @@
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+img {
+  max-width: 100%;
+}
+.hero {
+  background-image: url(../img/fondo-empire.jpg);
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.contenido-header {
+  text-align: center;
+}
+.logo-upb img {
+  width: 250px;
+}
+.titulo {
+
+  padding: 20px 0 0 0;
+}
+.titulo h2 {
+  font-size: 65px;
+  font-family: 'Overlock SC', sans-serif;
+  text-shadow: 10px 10px 9px #000000;
+  color: #ffffff;
+}
+.titulo p {
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 1;
+  text-shadow: 4px 4px 10px #000000;
+  color: #ffffff;
+}
+.btn.btn-outline-light {
+  width: 250px;
+  margin-top: 20px;
+  border-width: 2px;
+}
+@media (min-width:768px){
+  
+  .contenido-header {
+    
+    display: flex;
+  }
+  .logo-upb img {
+    width: 330px;
+  }
+  .titulo h2 {
+    font-size: 80px;
+  }
+  .titulo p {
+    font-size: 16px;
+  }
+  .logo-upb {
+    width: 330px;
+  }
+  .titulo {
+    width: 400px;
+    padding: 0;
+  }
+
+}

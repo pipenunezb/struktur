@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+
+<div class="header graficos">
+    <h2>GRÁFICOS</h2>
+</div>
+<div class="container-fluid">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id elit erat. Ut lobortis, sem sodales rutrum
+        sollicitudin, leo quam aliquet turpis, quis elementum lorem neque at ligula. Donec ac sem euismod, volutpat
+        justo in, interdum dolor. Maecenas dictum augue vitae ex consequat pellentesque. In commodo nisl purus, eu
+        sodales nibh congue pulvinar. Ut in viverra neque.</p>
+</div>
+<div class="container entradas graficos row justify-content-around">
+    <div class="normas entrada col">
+        <a href='/graficos_normas/' class="d-flex align-items-center justify-content-center">
+            <h4>Normas</h4>
+        </a>
+    </div>
+    <div class="diseño entrada col">
+        <a href='/graficos_calculos/' class="d-flex align-items-center justify-content-center">
+            <h4>Gráficos 3D y 2D</h4>
+        </a>
+    </div>
+</div>
+
+{% endblock %}
